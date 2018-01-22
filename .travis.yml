@@ -1,0 +1,5 @@
+ghc:
+- "7.10"
+
+script:
+- sh travis.sh
