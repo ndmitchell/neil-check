@@ -2,7 +2,8 @@
 set -e # exit on errors
 set -x # echo each line
 
-PROJECTS="neil hlint cmdargs hoogle shake extra"
+# My list of projects I check on Travis and which might break due to me changing the rules after-the-fact
+PROJECTS="cmdargs debug extra ghc-make ghcid hexml hlint hoogle js-flot js-query neil nsis profiterole safe shake tagsoup weeder"
 for PROJECT in ${PROJECTS}; do
     git clone https://github.com/ndmitchell/$PROJECT
 done
