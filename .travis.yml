@@ -1,4 +1,7 @@
 sudo: required
 language: haskell
 ghc: ["7.10"]
+before_install: ["echo before_install"]
+install: ["echo install"]
+before_script: ["echo before_script"]
 script: ["sh travis.sh"]
