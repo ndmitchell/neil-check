@@ -21,6 +21,7 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         system_ $ "git clone --depth=1 https://github.com/ndmitchell/" ++ p
 
     withCurrentDirectory "neil" $ do
+        system_ $ "cabal update"
         system_ $ "cabal configure --flags=small --verbose"
         system_ $ "cabal build"
     forM_ ps $ \p ->
