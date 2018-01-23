@@ -2,6 +2,7 @@
 set -e # exit on errors
 set -x # echo each line
 
+export PATH=$HOME/.cabal/bin:$PATH
 cabal install happy
 ghc --version
 cabal --version
