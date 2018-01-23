@@ -1,3 +1,2 @@
 sudo: required
 language: haskell
-ghc: ["8.2"]
