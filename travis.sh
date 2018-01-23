@@ -2,6 +2,9 @@
 set -e # exit on errors
 set -x # echo each line
 
+ghc --version
+cabal --version
+
 # My list of projects I check on Travis and which might break due to me changing the rules after-the-fact
 PROJECTS="cmdargs debug extra ghc-make ghcid hexml hlint hoogle js-flot js-jquery neil nsis profiterole safe shake tagsoup weeder"
 for PROJECT in ${PROJECTS}; do
