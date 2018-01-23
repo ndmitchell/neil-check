@@ -1,7 +1,4 @@
 sudo: required
-
-ghc:
-- "7.10"
-
-script:
-- sh travis.sh
+language: haskell
+ghc: ["7.10"]
+script: ["sh travis.sh"]
