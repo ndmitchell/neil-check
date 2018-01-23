@@ -3,7 +3,6 @@ build-type:         Simple
 version:            0
 name:               neil-check
 
-test-suite neil-check
+executable neil-check
     main-is: Main.hs
-    type: exitcode-stdio-1.0
     build-depends: base, process, filepath, directory, extra
