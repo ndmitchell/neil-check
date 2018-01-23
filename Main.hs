@@ -17,20 +17,21 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         system_ x
 
     let ps = projects \\ excluded
-    forM_ ps $ \p -> do
+    forM_ ps $ \p ->
         system_ $ "git clone --depth=1 https://github.com/ndmitchell/" ++ p
 
     withCurrentDirectory "neil" $ do
-        system_ $ "cabal install --dependencies"
-        system_ $ "cabal configure --flags=small"
-        system_ $ "cabal build"
+        system_ "cabal install --dependencies"
+        system_ "cabal configure --flags=small"
+        system_ "cabal build"
     forM_ ps $ \p ->
         withCurrentDirectory p $ system_ $ normalise "../neil/dist/build/neil/neil" ++ " check"
 
     withCurrentDirectory "hlint" $ do
-        system_ $ "cabal install --dependencies"
-        system_ $ "cabal configure"
-        system_ $ "cabal build"
+        system_ "cabal install happy"
+        system_ "cabal install --dependencies"
+        system_ "cabal configure"
+        system_ "cabal build"
         files <- listFilesRecursive "data"
         print files
         forM_ files $ \file -> do
