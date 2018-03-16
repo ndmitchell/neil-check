@@ -7,8 +7,10 @@ import System.Process.Extra
 import System.FilePath
 
 
-projects = words "cmdargs debug derive extra ghc-make ghcid hexml hlint hoogle js-flot js-jquery neil nsis profiterole safe shake tagsoup uniplate weeder"
-excluded = words "ghc-make derive uniplate"
+projects =
+    -- deliberately exclude ghc-make, derive, uniplate
+    map ("ndmitchell/" ++) (words "cmdargs debug extra ghcid hexml hlint hoogle js-flot js-jquery neil nsis profiterole safe shake tagsoup weeder") ++
+    ["haskell/filepath"]
 
 main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
     system_ <- return $ \x -> do
@@ -16,16 +18,15 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         putStrLn $ "$ cd " ++ takeFileName dir ++ " && " ++ x
         system_ x
 
-    let ps = projects \\ excluded
-    forM_ ps $ \p ->
-        system_ $ "git clone --depth=1 https://github.com/ndmitchell/" ++ p
+    forM_ projects $ \p ->
+        system_ $ "git clone --depth=1 https://github.com/" ++ p
 
     withCurrentDirectory "neil" $ do
         system_ "cabal install --dependencies"
         system_ "cabal configure --flags=small"
         system_ "cabal build"
-    forM_ ps $ \p ->
-        withCurrentDirectory p $ system_ $ normalise "../neil/dist/build/neil/neil" ++ " check"
+    forM_ projects $ \p ->
+        withCurrentDirectory (takeFileName p) $ system_ $ normalise "../neil/dist/build/neil/neil" ++ " check"
 
     withCurrentDirectory "hlint" $ do
         system_ "cabal install happy"
@@ -38,7 +39,7 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
             let out = "dist/build/hlint" </> file
             createDirectoryIfMissing True $ takeDirectory out
             copyFile file out
-    forM_ ps $ \p ->
-        withCurrentDirectory p $ do
+    forM_ projects $ \p ->
+        withCurrentDirectory (takeFileName p) $ do
             b <- doesDirectoryExist "src"
             system_ $ normalise "../hlint/dist/build/hlint/hlint" ++ " " ++ (if b then "src" else ".")
