@@ -9,7 +9,7 @@ import System.FilePath
 
 projects =
     -- deliberately exclude ghc-make, derive, uniplate
-    map ("ndmitchell/" ++) (words "cmdargs debug extra ghcid hexml hlint hoogle js-flot js-jquery neil nsis profiterole safe shake tagsoup weeder") ++
+    map ("ndmitchell/" ++) (words "cmdargs debug extra ghcid hexml hlint hoogle js-flot js-jquery neil nsis profiterole safe shake tagsoup weeder record-dot-preprocessor") ++
     ["haskell/filepath"]
 
 main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
