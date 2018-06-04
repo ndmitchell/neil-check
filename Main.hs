@@ -22,7 +22,7 @@ forEachProject act = do
             Left e -> do putStrLn $ "FAILED: " ++ p ++ ", " ++ show e; return $ Just p
             Right _ -> return Nothing
     when (failed /= []) $
-        putStrLn $ "FAILED: " ++ unwords failed
+        fail $ "FAILED: " ++ unwords failed
 
 
 main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
