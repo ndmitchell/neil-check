@@ -35,7 +35,7 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         system_ $ "git clone --depth=1 https://github.com/" ++ p
 
     withCurrentDirectory "neil" $ do
-        system_ "cabal install --dependencies"
+        system_ "cabal install --flags=small --dependencies"
         system_ "cabal configure --flags=small"
         system_ "cabal build"
     forEachProject $ \p ->
