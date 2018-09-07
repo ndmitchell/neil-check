@@ -1,0 +1,33 @@
+<html>
+    <head>
+<script>
+
+var repos_ndmitchell = "cmdargs debug extra ghcid hexml hlint hoogle js-flot js-jquery neil nsis profiterole safe shake tagsoup weeder record-dot-preprocessor";
+var repos_other = ["haskell/filepath"];
+
+var repos = repos_ndmitchell.split(" ").map(a => "ndmitchell/" + a).concat(repos_other);
+
+function open_some(xs)
+{
+    var suffix = document.getElementById("txt").value;
+    for (var x in xs)
+        window.open("https://github.com/" + xs[x] + suffix);
+}
+
+function open_one()
+{
+    open_some(repos.slice(0,1));
+}
+
+function open_all()
+{
+    open_some(repos);
+}
+</script>
+    </head>
+    <body>
+        <input type="text" id="txt" value="/edit/master/README.md" />
+        <input type="button" value="Open 1" onclick="open_one()" />
+        <input type="button" value="Open all" onclick="open_all()" />
+    </body>
+</html>
