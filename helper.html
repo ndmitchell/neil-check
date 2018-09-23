@@ -9,9 +9,12 @@ var repos = repos_ndmitchell.split(" ").map(a => "ndmitchell/" + a).concat(repos
 
 function open_some(xs)
 {
-    var suffix = document.getElementById("txt").value;
+    var url = document.getElementById("txt").value;
     for (var x in xs)
-        window.open("https://github.com/" + xs[x] + suffix);
+    {
+        var [user, name] = xs[x].split("/");
+        window.open(url.replace(/\${name}/g, name).replace(/\${user}/g, user));
+    }
 }
 
 function open_one()
@@ -26,7 +29,7 @@ function open_all()
 </script>
     </head>
     <body>
-        <input type="text" id="txt" value="/edit/master/README.md" />
+        <input type="text" id="txt" value="https://github.com/${user}/${name}/edit/master/${name}.cabal" style="width: 500px;" /> <br />
         <input type="button" value="Open 1" onclick="open_one()" />
         <input type="button" value="Open all" onclick="open_all()" />
     </body>
