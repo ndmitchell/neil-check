@@ -54,5 +54,6 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
             copyFile file out
     forEachProject $ \p ->
         withCurrentDirectory (takeFileName p) $ do
-            b <- doesDirectoryExist "src"
-            system_ $ normalise "../hlint/dist/build/hlint/hlint" ++ " " ++ (if b then "src" else ".")
+            xs <- readFile' ".travis.yml"
+            let args = head $ mapMaybe (stripPrefix "- export HLINT_ARGUMENTS=") (lines xs) ++ ["."]
+            system_ $ normalise "../hlint/dist/build/hlint/hlint" ++ " " ++ args
