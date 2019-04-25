@@ -1,5 +1,6 @@
 sudo: required
 language: haskell
+ghc: 8.4.1
 script:
 - export PATH=$HOME/.cabal/bin:$PATH
 - cabal install
