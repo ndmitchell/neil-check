@@ -10,8 +10,8 @@ import System.FilePath
 
 
 projects =
-    -- deliberately exclude ghc-make, derive, uniplate
-    map ("ndmitchell/" ++) (words "cmdargs debug extra filepattern ghcid hexml hlint hoogle js-flot js-jquery js-dgtable neil nsis profiterole safe shake tagsoup weeder record-dot-preprocessor record-hasfield rattle") ++
+    -- deliberately exclude ghc-make, debug, derive, uniplate
+    map ("ndmitchell/" ++) (words "cmdargs extra filepattern ghcid hexml hlint hoogle js-flot js-jquery js-dgtable neil nsis profiterole safe shake tagsoup weeder record-dot-preprocessor record-hasfield rattle") ++
     ["haskell/filepath"]
 
 forEachProject :: (String -> IO ()) -> IO ()
