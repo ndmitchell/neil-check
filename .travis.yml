@@ -1,7 +1,7 @@
 sudo: required
 language: haskell
-cabal: 3.0
-ghc: 8.8.3
+# cabal: 3.0
+ghc: 8.4.1
 script:
 - export PATH=$HOME/.cabal/bin:$PATH
 - cabal install alex happy
