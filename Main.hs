@@ -56,4 +56,4 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         withCurrentDirectory (takeFileName p) $ do
             xs <- readFile' ".travis.yml"
             let args = head $ mapMaybe (stripPrefix "- export HLINT_ARGUMENTS=") (lines xs) ++ ["."]
-            system_ $ normalise "../hlint/dist/build/hlint/hlint" ++ " " ++ args ++ " --with-group=extra"
+            system_ $ normalise "../hlint/dist/build/hlint/hlint" ++ " " ++ args ++ " --with-group=extra --with-group=future"
