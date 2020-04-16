@@ -42,10 +42,9 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         withCurrentDirectory (takeFileName p) $ system_ $ normalise "../neil/dist/build/neil/neil" ++ " check"
 
     withCurrentDirectory "hlint" $ do
-        system_ "cabal install happy"
-        system_ "cabal install --dependencies"
+        system_ "cabal install --dependencies --disable-optimisation"
         system_ "cabal configure"
-        system_ "cabal build"
+        system_ "cabal build --disable-optimisation"
         files <- listFilesRecursive "data"
         print files
         forM_ files $ \file -> do
