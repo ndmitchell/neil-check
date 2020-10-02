@@ -7,6 +7,7 @@ import Control.Exception.Extra
 import Control.Monad
 import System.Process.Extra
 import System.FilePath
+import Data.List.Extra
 
 
 projects =
@@ -53,5 +54,6 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
     forEachProject $ \p ->
         withCurrentDirectory (takeFileName p) $ do
             xs <- readFile' ".travis.yml"
-            let args = head $ mapMaybe (stripPrefix "- export HLINT_ARGUMENTS=") (lines xs) ++ ["."]
+            let unquote = dropPrefix "\"" . dropSuffix "\""
+            let args = unquote $ fromMaybe "." $ firstJust (stripPrefix "- export HLINT_ARGUMENTS=") $ lines xs
             system_ $ normalise "../hlint/dist/build/hlint/hlint" ++ " " ++ args ++ " --with-group=extra --with-group=future"
