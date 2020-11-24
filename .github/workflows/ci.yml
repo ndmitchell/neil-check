@@ -1,0 +1,12 @@
+name: ci
+on:
+  push:
+  pull_request:
+  schedule:
+  - cron:  '0 3 * * *' # 3am every day
+jobs:
+  test:
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-haskell@v1
+    - run: cabal run
