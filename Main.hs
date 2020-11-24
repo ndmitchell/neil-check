@@ -42,18 +42,10 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         withCurrentDirectory (takeFileName p) $ system_ $ normalise "../neil/neil" ++ " check"
 
     withCurrentDirectory "hlint" $ do
-        system_ "cabal install --dependencies --disable-optimisation"
-        system_ "cabal configure --disable-optimisation"
-        system_ "cabal build"
-        files <- listFilesRecursive "data"
-        print files
-        forM_ files $ \file -> do
-            let out = "dist/build/hlint" </> file
-            createDirectoryIfMissing True $ takeDirectory out
-            copyFile file out
+        system_ "cabal new-install --disable-optimisation --installdir=."
     forEachProject $ \p ->
         withCurrentDirectory (takeFileName p) $ do
             xs <- readFile' ".travis.yml"
             let unquote = dropPrefix "\"" . dropSuffix "\""
             let args = unquote $ fromMaybe "." $ firstJust (stripPrefix "- export HLINT_ARGUMENTS=") $ lines xs
-            system_ $ normalise "../hlint/dist/build/hlint/hlint" ++ " " ++ args ++ " --with-group=extra --with-group=future"
+            system_ $ normalise "../hlint/hlint" ++ " " ++ args ++ " --with-group=extra --with-group=future"
