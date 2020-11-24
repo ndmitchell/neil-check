@@ -1,7 +1,0 @@
-sudo: required
-language: haskell
-cabal: 2.4
-ghc: 8.10
-script:
-- export PATH=$HOME/.cabal/bin:$PATH
-- cabal run
