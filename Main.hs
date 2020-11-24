@@ -26,6 +26,8 @@ forEachProject act = do
 
 
 main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
+    hSetBuffering stdout NoBuffering
+    hSetBuffering stderr NoBuffering
     system_ <- return $ \x -> do
         dir <- getCurrentDirectory
         putStrLn $ "$ cd " ++ takeFileName dir ++ " && " ++ x
