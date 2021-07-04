@@ -45,7 +45,7 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         system_ "cabal new-install --disable-optimisation --installdir=."
     forEachProject $ \p ->
         withCurrentDirectory (takeFileName p) $ do
-            xs <- return "" -- readFile' ".travis.yml"
+            xs <- readFile' ".github/workflows/ci.yml"
             let unquote = dropPrefix "\"" . dropSuffix "\""
-            let args = unquote $ fromMaybe "." $ firstJust (stripPrefix "- export HLINT_ARGUMENTS=") $ lines xs
+            let args = unquote $ fromMaybe "." $ firstJust (stripPrefix "hlint-arguments: " . trim) $ lines xs
             system_ $ normalise "../hlint/hlint" ++ " " ++ args ++ " --with-group=extra --with-group=future"
