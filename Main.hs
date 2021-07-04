@@ -45,7 +45,7 @@ main = withTempDir $ \tdir -> withCurrentDirectory tdir $ do
         system_ "cabal new-install --disable-optimisation --installdir=."
     forEachProject $ \p ->
         withCurrentDirectory (takeFileName p) $ do
-            xs <- readFile' ".travis.yml"
+            xs <- return "" -- readFile' ".travis.yml"
             let unquote = dropPrefix "\"" . dropSuffix "\""
             let args = unquote $ fromMaybe "." $ firstJust (stripPrefix "- export HLINT_ARGUMENTS=") $ lines xs
             system_ $ normalise "../hlint/hlint" ++ " " ++ args ++ " --with-group=extra --with-group=future"
