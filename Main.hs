@@ -12,7 +12,7 @@ import Data.List.Extra
 
 projects =
     -- deliberately exclude ghc-make, debug, derive
-    map ("ndmitchell/" ++) (words "cmdargs extra filepattern ghcid hexml hlint hoogle js-flot js-jquery js-dgtable neil nsis profiterole safe shake tagsoup record-dot-preprocessor record-hasfield rattle uniplate")
+    map ("ndmitchell/" ++) (words "cmdargs extra filepattern ghcid hexml hlint hoogle js-flot js-jquery js-dgtable neil nsis safe shake tagsoup record-dot-preprocessor record-hasfield rattle uniplate")
 
 forEachProject :: (String -> IO ()) -> IO ()
 forEachProject act = do
