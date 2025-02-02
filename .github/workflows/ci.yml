@@ -2,6 +2,7 @@ name: ci
 on:
   push:
   pull_request:
+  workflow_dispatch:
   schedule:
   - cron:  '0 3 * * *' # 3am every day
 jobs:
